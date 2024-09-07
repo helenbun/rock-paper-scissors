@@ -21,8 +21,8 @@ function getComputerChoice() {
 //Take user input, if it is not rock, paper or scissors, prompt again. If valid option, return it.
 
 function getHumanChoice() {
-    let humanChoice = prompt("Rock, paper or scissors?");
-    humanChoice = humanChoice.toLowerCase();
+    let humanChoice = "";
+    humanChoice = prompt("Rock, paper or scissors?").toLowerCase();
     while (humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") {
         humanChoice = prompt("Invalid choice, please input rock, paper or scissors.");
         humanChoice = humanChoice.toLowerCase();
@@ -86,6 +86,23 @@ function playRound(humanChoice, computerChoice){
         computerScore += 1;
         }
     }
+console.log(`Your score is ${humanScore}, computer score is ${computerScore}`);
 }
 
-playRound();
+//Run playRound 5 times, check whether human or computer has higher score, declare winner.
+function playGame() {
+    for (let i = 0; i < 5; i++){
+        playRound();
+    }
+    if (humanScore > computerScore) {
+        console.log(`You scored ${humanScore} and computer scored ${computerScore}, you win!`)
+    }
+    else if (computerScore > humanScore) {
+        console.log(`You scored ${humanScore} and computer scored ${computerScore}, you lose!`)
+    }
+    else {
+        console.log(`You both scored ${humanScore}, it's a draw!`)
+    }
+}
+
+playGame();
