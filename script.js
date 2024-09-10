@@ -1,5 +1,9 @@
 let humanScore = 0;
 let computerScore = 0;
+let roundNum = 1;
+
+const btns = document.querySelectorAll("button");
+const round = document.querySelector("h2");
 
 //Get computer guess by generating a random number between 1 and 99. 
 function getComputerChoice() {
@@ -18,34 +22,22 @@ function getComputerChoice() {
     }   
 }
 
-//Take user input, if it is not rock, paper or scissors, prompt again. If valid option, return it.
-
-function getHumanChoice() {
-    let humanChoice = "";
-    humanChoice = prompt("Rock, paper or scissors?").toLowerCase();
-    while (humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") {
-        humanChoice = prompt("Invalid choice, please input rock, paper or scissors.");
-        humanChoice = humanChoice.toLowerCase();
-    }
-    return humanChoice;
-
-}
-
 //For one round, get human choice and computer choice.
 //Determine the winner of the round.
 //Print the winner to the console.
 //Increment the human or computer score.
 
-function playRound(humanChoice, computerChoice){
-    humanChoice = getHumanChoice();
-    computerChoice = getComputerChoice();
-    let winner = null;
-    if (computerChoice === humanChoice) {
-        console.log(`You both chose ${computerChoice}. It's a draw!`);
-    }
-    else {
-        switch (humanChoice){
-            case "rock":
+function playRound(humanChoice){
+    if (humanScore < 5 && computerScore < 5) {
+        round.textContent = `Round ${roundNum}`;
+        let computerChoice = getComputerChoice();
+        let winner = null;
+        if (computerChoice === humanChoice) {
+            console.log(`You both chose ${computerChoice}. It's a draw!`);
+        }
+        else {
+            switch (humanChoice){
+                case "rock":
                 if (computerChoice === "paper") {
                     console.log("Paper covers rock, you lose!")
                     winner = "computer";
@@ -56,7 +48,7 @@ function playRound(humanChoice, computerChoice){
                     winner = "human";
                     break;
                 }
-            case "scissors":
+                case "scissors":
                 if (computerChoice === "paper") {
                     console.log("Scissors cut paper, you win!")
                     winner = "human";
@@ -67,7 +59,7 @@ function playRound(humanChoice, computerChoice){
                     winner = "computer";
                     break;
                 }
-            case "paper":
+                case "paper":
                 if (computerChoice === "scissors") {
                     console.log("Scissors cut paper, you lose!")
                     winner = "computer";
@@ -86,23 +78,36 @@ function playRound(humanChoice, computerChoice){
         computerScore += 1;
         }
     }
-console.log(`Your score is ${humanScore}, computer score is ${computerScore}`);
+    if (humanScore >= 5 || computerScore >=5) {
+        declareWinner();
+    }
+    else {
+    console.log(`Your score is ${humanScore}, computer score is ${computerScore}`);
+    roundNum += 1;
+    }
+}
 }
 
-//Run playRound 5 times, check whether human or computer has higher score, declare winner.
-function playGame() {
-    for (let i = 0; i < 5; i++){
-        playRound();
-    }
+function declareWinner() {
     if (humanScore > computerScore) {
-        console.log(`You scored ${humanScore} and computer scored ${computerScore}, you win!`)
+        console.log(`You scored ${humanScore} and computer scored ${computerScore}, you win!`)  
     }
     else if (computerScore > humanScore) {
         console.log(`You scored ${humanScore} and computer scored ${computerScore}, you lose!`)
-    }
+    }   
     else {
         console.log(`You both scored ${humanScore}, it's a draw!`)
     }
 }
 
-playGame();
+btns.forEach((btn) => btn.addEventListener("click", () => playRound(btn.id)));
+
+/*For now, remove the logic that plays exactly five rounds.
+Create three buttons, one for each selection. Add an event listener to the buttons that call your playRound function with the correct playerSelection 
+every time a button is clicked. (you can keep the console.logs for this step)
+Add a div for displaying results and change all of your console.logs into DOM methods.
+Display the running score, and announce a winner of the game once one player reaches 5 points.
+You will likely have to refactor (rework/rewrite) your original code to make it work for this. That’s OK! Reworking old code is an important part of a 
+programmer’s life.*/
+/*Check if human score or computer score is 5, if it is the game is over.
+Else, when a player clicks a button, get computer score and declare winner, add to scores.*/
