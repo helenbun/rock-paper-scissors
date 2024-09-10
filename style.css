@@ -5,7 +5,8 @@
     font-family: Verdana, Arial, sans-serif;
 }
 
-h1 {
+h1,
+.score {
     font-size: 48px;
     font-weight: 800;
 }
@@ -13,10 +14,11 @@ h1 {
 h2 {
     text-align: center;
     padding-bottom: 30px;
+    margin-top: -30px;
 }
 
 div {
-    padding: 50px 200px;
+    padding: 0 200px;
     font-size: 24px;
 }
 
@@ -24,6 +26,7 @@ ul {
     list-style-type: none;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 48px;
     margin: auto;
     max-width: 100%;
@@ -35,13 +38,43 @@ img {
     padding-bottom: 18px;
 }
 
+button,
+#game-status {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 button {
     padding: 30px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Courier New', Courier, monospace;
     font-size: 28px;
     background-color: #f3f3f3;
     border-radius: 8px;
+}
+
+#header{
+    padding-top: 25px;
+}
+
+#scores {
+    padding: 50px 200px 0;
+    font-size: 28px;
+}
+
+li.player:nth-child(3) {
+    margin-left: auto;
+}
+
+#game-status {
+    background-color: #f3f3f3;
+    max-width: 750px;
+    margin: 0 auto 50px;
+    padding: 50px;
+    text-align: center;
+}
+
+.score {
+    background-color: #f3f3f3;
+    padding: 35px 50px;
 }

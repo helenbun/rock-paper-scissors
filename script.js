@@ -4,6 +4,9 @@ let roundNum = 1;
 
 const btns = document.querySelectorAll("button");
 const round = document.querySelector("h2");
+const hScore = document.querySelector("#human-score");
+const cScore = document.querySelector("#computer-score");
+const gameStatus = document.querySelector("#game-status")
 
 //Get computer guess by generating a random number between 1 and 99. 
 function getComputerChoice() {
@@ -33,49 +36,51 @@ function playRound(humanChoice){
         let computerChoice = getComputerChoice();
         let winner = null;
         if (computerChoice === humanChoice) {
-            console.log(`You both chose ${computerChoice}. It's a draw!`);
+            gameStatus.textContent = `You both chose ${computerChoice}. It's a draw!`;
         }
         else {
             switch (humanChoice){
                 case "rock":
                 if (computerChoice === "paper") {
-                    console.log("Paper covers rock, you lose!")
+                    gameStatus.textContent = "Paper covers rock, you lose!";
                     winner = "computer";
                     break;
                 }
                 else {
-                    console.log("Rock breaks scissors, you win!")
+                    gameStatus.textContent = "Rock breaks scissors, you win!";
                     winner = "human";
                     break;
                 }
                 case "scissors":
                 if (computerChoice === "paper") {
-                    console.log("Scissors cut paper, you win!")
+                    gameStatus.textContent = "Scissors cut paper, you win!";
                     winner = "human";
                     break;
                 }
                 else {
-                    console.log("Rock breaks scissors, you lose!")
+                    gameStatus.textContent = "Rock breaks scissors, you lose!";
                     winner = "computer";
                     break;
                 }
                 case "paper":
                 if (computerChoice === "scissors") {
-                    console.log("Scissors cut paper, you lose!")
+                    gameStatus.textContent = "Scissors cut paper, you lose!";
                     winner = "computer";
                     break;
                 }
                 else {
-                    console.log("Paper covers rock, you win!")
+                    gameStatus.textContent = "Paper covers rock, you win!";
                     winner = "human";
                     break;
                 }
         }
     if (winner === "human"){
         humanScore += 1;
+        hScore.textContent = humanScore;
     }
     else {
         computerScore += 1;
+        cScore.textContent = computerScore;
         }
     }
     if (humanScore >= 5 || computerScore >=5) {
@@ -90,14 +95,11 @@ function playRound(humanChoice){
 
 function declareWinner() {
     if (humanScore > computerScore) {
-        console.log(`You scored ${humanScore} and computer scored ${computerScore}, you win!`)  
+        gameStatus.textContent = `You scored ${humanScore} and computer scored ${computerScore}, you win!`;  
     }
-    else if (computerScore > humanScore) {
-        console.log(`You scored ${humanScore} and computer scored ${computerScore}, you lose!`)
-    }   
     else {
-        console.log(`You both scored ${humanScore}, it's a draw!`)
-    }
+        gameStatus.textContent = `You scored ${humanScore} and computer scored ${computerScore}, you lose!`;
+    } 
 }
 
 btns.forEach((btn) => btn.addEventListener("click", () => playRound(btn.id)));
